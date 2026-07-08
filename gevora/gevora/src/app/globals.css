@@ -1,0 +1,136 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+@import "@fontsource/fraunces/400.css";
+@import "@fontsource/fraunces/500.css";
+@import "@fontsource/fraunces/600.css";
+@import "@fontsource/fraunces/600-italic.css";
+@import "@fontsource/manrope/400.css";
+@import "@fontsource/manrope/500.css";
+@import "@fontsource/manrope/600.css";
+@import "@fontsource/manrope/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+:root {
+  /* Sri Lankan tropical-modernist palette, named for what they are in-world */
+  --ink: #14211f;          /* deep monsoon-shade text */
+  --teal: #0e4d46;         /* primary — deep lagoon teal */
+  --teal-light: #16685f;
+  --sand: #f4efe3;         /* warm limewash/plaster background */
+  --sand-deep: #eae2d0;
+  --paper: #fbf8f1;        /* card surface, lighter than sand */
+  --spice: #bd6e2a;        /* cinnamon/spice accent — used sparingly */
+  --spice-light: #d68c4a;
+  --lotus: #93314a;        /* lotus accent — rare, for alerts/price-drops */
+  --mist: #ded4bf;         /* borders/dividers */
+  --mist-dark: #b9ac8e;
+
+  --background: var(--sand);
+  --foreground: var(--ink);
+}
+
+.dark {
+  --ink: #f4efe3;
+  --teal: #3c9187;
+  --teal-light: #55ab9f;
+  --sand: #10201d;
+  --sand-deep: #182b27;
+  --paper: #16302b;
+  --spice: #e0985a;
+  --spice-light: #eab27e;
+  --lotus: #d97b93;
+  --mist: #2c433d;
+  --mist-dark: #3d5951;
+
+  --background: var(--sand);
+  --foreground: var(--ink);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-teal: var(--teal);
+  --color-teal-light: var(--teal-light);
+  --color-sand: var(--sand);
+  --color-sand-deep: var(--sand-deep);
+  --color-paper: var(--paper);
+  --color-spice: var(--spice);
+  --color-spice-light: var(--spice-light);
+  --color-lotus: var(--lotus);
+  --color-mist: var(--mist);
+  --color-mist-dark: var(--mist-dark);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Signature motif: louvre-lines — repeating horizontal rules evoking
+   timber louvred screens used for cross-ventilation in Sri Lankan
+   tropical-modernist architecture. Used as texture, never as noise. */
+.louvre-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--ink) 6%, transparent) 0px,
+    color-mix(in srgb, var(--ink) 6%, transparent) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+}
+
+.louvre-lines-light {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--paper) 14%, transparent) 0px,
+    color-mix(in srgb, var(--paper) 14%, transparent) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+}
+
+.louvre-divider {
+  height: 24px;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--mist) 0px,
+    var(--mist) 22px,
+    transparent 22px,
+    transparent 30px
+  );
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 1.5px;
+}
+
+::selection {
+  background: var(--spice);
+  color: var(--paper);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--sand);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--mist-dark);
+  border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
