@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { AIChatWidget } from "@/components/ai/AIChatWidget";
+import VideoSplash from "@/components/VideoSplash";
 
 export const metadata: Metadata = {
   title: "Gevora — Property Portal for Sri Lanka",
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className="flex min-h-full flex-col bg-sand font-sans text-ink">
+        <VideoSplash />
         <ThemeProvider>
           <QueryProvider>
             <Navbar />

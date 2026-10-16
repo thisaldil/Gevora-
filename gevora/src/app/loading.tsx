@@ -14,20 +14,6 @@ export default function Loading() {
           <div className="h-full w-1/2 animate-[loading_1.2s_ease-in-out_infinite] rounded-full bg-[#0e4d46]" />
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes loading {
-          0% {
-            transform: translateX(-100%);
-          }
-          50% {
-            transform: translateX(100%);
-          }
-          100% {
-            transform: translateX(200%);
-          }
-        }
-      `}</style>
     </div>
   );
 }
