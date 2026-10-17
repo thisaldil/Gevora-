@@ -11,14 +11,15 @@ const apartmentImages = [
   "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
 ];
 
-const img = (seed: string) => {
+const img = (seed: string, w = 800, h = 600) => {
   let hash = 0;
 
   for (let i = 0; i < seed.length; i++) {
     hash = seed.charCodeAt(i) + ((hash << 5) - hash);
   }
 
-  return apartmentImages[Math.abs(hash) % apartmentImages.length];
+  const base = apartmentImages[Math.abs(hash) % apartmentImages.length];
+  return `${base}?auto=compress&cs=tinysrgb&fit=crop&w=${w}&h=${h}`;
 };
 
 export const agents: Agent[] = [
