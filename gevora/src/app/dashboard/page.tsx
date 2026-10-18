@@ -22,7 +22,7 @@ export default function DashboardOverviewPage() {
       <h1 className="font-display text-2xl font-semibold text-ink">Welcome back</h1>
       <p className="mt-1 text-ink/60">Here&rsquo;s what&rsquo;s happening with your property search.</p>
 
-      <div className="mt-6 grid grid-cols-3 gap-4">
+      <div className="mt-6 grid gap-4 sm:grid-cols-3">
         <div className="rounded-xl border border-mist bg-paper p-4 text-center">
           <p className="font-mono text-2xl font-semibold text-teal">{savedIds.length}</p>
           <p className="text-xs text-ink/50">Saved properties</p>

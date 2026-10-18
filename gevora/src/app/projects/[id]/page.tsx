@@ -47,7 +47,7 @@ export default function ProjectDetailPage() {
           <h1 className="mt-2 font-display text-3xl font-semibold text-ink">{project.name}</h1>
           <p className="mt-1 text-ink/60">{project.location}</p>
 
-          <div className="mt-6 grid grid-cols-3 gap-3 rounded-xl border border-mist bg-paper p-4">
+          <div className="mt-6 grid grid-cols-1 gap-3 rounded-xl border border-mist bg-paper p-4 sm:grid-cols-3">
             <div>
               <p className="font-mono text-lg font-semibold text-teal">{formatPrice(project.priceFrom)}</p>
               <p className="text-xs text-ink/50">Starting price</p>

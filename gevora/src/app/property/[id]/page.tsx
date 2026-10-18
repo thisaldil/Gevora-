@@ -77,7 +77,7 @@ export default function PropertyDetailPage() {
           <div className="mt-5 flex flex-wrap gap-2">
             <button
               onClick={() => toggleSaved(property.id)}
-              className={`flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium ${
+              className={`flex min-h-11 items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium ${
                 isSaved ? "border-lotus text-lotus" : "border-mist text-ink/70 hover:border-mist-dark"
               }`}
             >
@@ -85,7 +85,7 @@ export default function PropertyDetailPage() {
             </button>
             <button
               onClick={() => toggleCompare(property.id)}
-              className={`flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium ${
+              className={`flex min-h-11 items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium ${
                 isComparing ? "border-teal text-teal" : "border-mist text-ink/70 hover:border-mist-dark"
               }`}
             >
@@ -152,6 +152,17 @@ export default function PropertyDetailPage() {
           </div>
         </div>
       )}
+      <div className="fixed inset-x-0 bottom-0 z-40 flex gap-2 border-t border-mist bg-paper/95 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-4px_16px_rgba(20,33,31,0.12)] backdrop-blur lg:hidden">
+        <a href={`tel:${property.agent.phone}`} className="flex min-h-11 flex-1 items-center justify-center rounded-lg border border-teal px-3 text-sm font-semibold text-teal">
+          Call
+        </a>
+        <a href={`https://wa.me/${property.agent.phone.replace(/\D/g, "")}`} className="flex min-h-11 flex-1 items-center justify-center rounded-lg bg-teal px-3 text-sm font-semibold text-paper">
+          WhatsApp
+        </a>
+        <a href="#enquire" className="flex min-h-11 flex-1 items-center justify-center rounded-lg bg-spice px-3 text-sm font-semibold text-paper">
+          Enquire
+        </a>
+      </div>
     </div>
   );
 }

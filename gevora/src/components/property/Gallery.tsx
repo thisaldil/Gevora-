@@ -19,14 +19,14 @@ export function Gallery({ images, title }: { images: string[]; title: string }) 
         <button
           onClick={() => go(-1)}
           aria-label="Previous photo"
-          className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-paper/85 text-ink"
+          className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-paper/85 text-ink"
         >
           <ChevronLeft size={18} />
         </button>
         <button
           onClick={() => go(1)}
           aria-label="Next photo"
-          className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-paper/85 text-ink"
+          className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-paper/85 text-ink"
         >
           <ChevronRight size={18} />
         </button>

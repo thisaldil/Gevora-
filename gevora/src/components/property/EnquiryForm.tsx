@@ -42,11 +42,14 @@ export function EnquiryForm({ propertyId, propertyTitle }: { propertyId: string;
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="rounded-xl border border-mist bg-paper p-5">
+    <form id="enquire" onSubmit={handleSubmit(onSubmit)} className="rounded-xl border border-mist bg-paper p-5">
       <h2 className="font-display text-lg font-semibold text-ink">Enquire about this property</h2>
       <div className="mt-4 space-y-3">
         <div>
+          <label htmlFor="enquiry-name" className="sr-only">Full name</label>
           <input
+            id="enquiry-name"
+            autoComplete="name"
             {...register("name")}
             placeholder="Your full name"
             className="w-full rounded-lg border border-mist bg-sand px-3 py-2.5 text-sm focus:outline-none focus:border-teal"
@@ -54,7 +57,11 @@ export function EnquiryForm({ propertyId, propertyTitle }: { propertyId: string;
           {errors.name && <p className="mt-1 text-xs text-lotus">{errors.name.message}</p>}
         </div>
         <div>
+          <label htmlFor="enquiry-email" className="sr-only">Email address</label>
           <input
+            id="enquiry-email"
+            type="email"
+            autoComplete="email"
             {...register("email")}
             placeholder="Email address"
             className="w-full rounded-lg border border-mist bg-sand px-3 py-2.5 text-sm focus:outline-none focus:border-teal"
@@ -62,7 +69,12 @@ export function EnquiryForm({ propertyId, propertyTitle }: { propertyId: string;
           {errors.email && <p className="mt-1 text-xs text-lotus">{errors.email.message}</p>}
         </div>
         <div>
+          <label htmlFor="enquiry-phone" className="sr-only">Phone number</label>
           <input
+            id="enquiry-phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
             {...register("phone")}
             placeholder="Phone number (e.g. 077 123 4567)"
             className="w-full rounded-lg border border-mist bg-sand px-3 py-2.5 text-sm focus:outline-none focus:border-teal"

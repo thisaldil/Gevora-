@@ -52,7 +52,7 @@ export function PropertyCard({ property, className }: { property: Property; clas
           }}
           aria-label={isSaved ? "Remove from saved" : "Save property"}
           className={cn(
-            "flex h-8 w-8 items-center justify-center rounded-full bg-paper/90 backdrop-blur transition-colors",
+            "flex h-11 w-11 items-center justify-center rounded-full bg-paper/90 backdrop-blur transition-colors",
             isSaved ? "text-lotus" : "text-ink/60 hover:text-lotus"
           )}
         >
@@ -65,7 +65,7 @@ export function PropertyCard({ property, className }: { property: Property; clas
           }}
           aria-label={isComparing ? "Remove from compare" : "Add to compare"}
           className={cn(
-            "flex h-8 w-8 items-center justify-center rounded-full bg-paper/90 backdrop-blur transition-colors",
+            "flex h-11 w-11 items-center justify-center rounded-full bg-paper/90 backdrop-blur transition-colors",
             isComparing ? "text-teal" : "text-ink/60 hover:text-teal"
           )}
         >
@@ -75,8 +75,8 @@ export function PropertyCard({ property, className }: { property: Property; clas
 
       <Link href={`/property/${property.id}`} className="flex flex-1 flex-col p-4">
         <p className="font-mono text-lg font-semibold text-teal">{priceLabel}</p>
-        <h3 className="mt-1 line-clamp-1 font-display text-base font-medium text-ink">{property.title}</h3>
-        <p className="mt-0.5 line-clamp-1 text-sm text-ink/60">
+        <h3 className="mt-1 font-display text-base font-medium text-ink">{property.title}</h3>
+        <p className="mt-0.5 text-sm text-ink/60">
           {property.address.suburb}, {property.address.district}
         </p>
 

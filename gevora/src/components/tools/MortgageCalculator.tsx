@@ -57,6 +57,8 @@ export function MortgageCalculator() {
         <Field label="Property price (LKR)" error={errors.propertyPrice?.message}>
           <input
             type="number"
+            inputMode="decimal"
+            autoComplete="off"
             step="100000"
             {...register("propertyPrice", { valueAsNumber: true })}
             className="w-full rounded-lg border border-mist bg-sand px-3 py-2.5 font-mono text-sm focus:outline-none focus:border-teal"
@@ -65,6 +67,8 @@ export function MortgageCalculator() {
         <Field label="Down payment (LKR)" error={errors.downPayment?.message}>
           <input
             type="number"
+            inputMode="decimal"
+            autoComplete="off"
             step="100000"
             {...register("downPayment", { valueAsNumber: true })}
             className="w-full rounded-lg border border-mist bg-sand px-3 py-2.5 font-mono text-sm focus:outline-none focus:border-teal"
@@ -73,6 +77,7 @@ export function MortgageCalculator() {
         <Field label="Interest rate (% p.a.)" error={errors.interestRate?.message}>
           <input
             type="number"
+            inputMode="decimal"
             step="0.1"
             {...register("interestRate", { valueAsNumber: true })}
             className="w-full rounded-lg border border-mist bg-sand px-3 py-2.5 font-mono text-sm focus:outline-none focus:border-teal"
@@ -81,6 +86,7 @@ export function MortgageCalculator() {
         <Field label="Loan term (years)" error={errors.years?.message}>
           <input
             type="number"
+            inputMode="numeric"
             {...register("years", { valueAsNumber: true })}
             className="w-full rounded-lg border border-mist bg-sand px-3 py-2.5 font-mono text-sm focus:outline-none focus:border-teal"
           />

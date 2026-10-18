@@ -39,7 +39,7 @@ export default function SuburbInsightsPage() {
       <h1 className="font-display text-3xl font-semibold text-ink">{stats.suburb}</h1>
       <p className="mt-1 text-ink/60">{stats.district} District, Sri Lanka</p>
 
-      <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="Median sale price" value={formatPrice(stats.medianSalePrice)} />
         <StatCard label="Median rent" value={`${formatPrice(stats.medianRentPrice)}/mo`} />
         <StatCard label="Rental yield" value={`${stats.rentalYield}%`} />

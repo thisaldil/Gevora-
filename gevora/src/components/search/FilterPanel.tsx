@@ -40,7 +40,7 @@ function FilterSection({ title, children, defaultOpen = true }: { title: string;
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between text-left"
+        className="flex min-h-11 w-full items-center justify-between text-left"
       >
         <span className="font-display text-sm font-semibold text-ink">{title}</span>
         <ChevronDown size={16} className={cn("text-ink/40 transition-transform", open && "rotate-180")} />
@@ -76,7 +76,7 @@ export function FilterPanel() {
     <div className="rounded-xl border border-mist bg-paper p-4">
       <div className="flex items-center justify-between pb-1">
         <h2 className="font-display text-base font-semibold text-ink">Refine your search</h2>
-        <button onClick={reset} className="text-xs font-medium text-teal hover:underline">
+        <button onClick={reset} className="min-h-11 px-2 text-xs font-medium text-teal hover:underline">
           Clear all
         </button>
       </div>
@@ -88,7 +88,7 @@ export function FilterPanel() {
               key={opt.id}
               onClick={() => toggleType(opt.id)}
               className={cn(
-                "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
+                "min-h-11 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
                 propertyTypes.includes(opt.id)
                   ? "border-teal bg-teal text-paper"
                   : "border-mist text-ink/70 hover:border-mist-dark"
@@ -140,7 +140,7 @@ export function FilterPanel() {
                   key={n}
                   onClick={() => setBedsMin(bedsMin === n ? undefined : n)}
                   className={cn(
-                    "h-8 w-8 rounded-lg border text-xs font-semibold",
+                    "h-11 w-11 rounded-lg border text-xs font-semibold",
                     bedsMin === n ? "border-teal bg-teal text-paper" : "border-mist text-ink/70"
                   )}
                 >
@@ -157,7 +157,7 @@ export function FilterPanel() {
                   key={n}
                   onClick={() => setBathsMin(bathsMin === n ? undefined : n)}
                   className={cn(
-                    "h-8 w-8 rounded-lg border text-xs font-semibold",
+                    "h-11 w-11 rounded-lg border text-xs font-semibold",
                     bathsMin === n ? "border-teal bg-teal text-paper" : "border-mist text-ink/70"
                   )}
                 >
@@ -176,7 +176,7 @@ export function FilterPanel() {
               key={f}
               onClick={() => toggleSlFeature(f)}
               className={cn(
-                "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
+                "min-h-11 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
                 slFeatures.includes(f)
                   ? "border-spice bg-spice text-paper"
                   : "border-mist text-ink/70 hover:border-mist-dark"

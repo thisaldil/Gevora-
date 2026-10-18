@@ -11,9 +11,9 @@ const variants = {
 } as const;
 
 const sizes = {
-  sm: "text-sm px-3.5 py-1.5 rounded-lg gap-1.5",
-  md: "text-sm px-5 py-2.5 rounded-lg gap-2",
-  lg: "text-base px-6 py-3.5 rounded-xl gap-2.5",
+  sm: "min-h-11 text-sm px-3.5 py-2 rounded-lg gap-1.5",
+  md: "min-h-11 text-sm px-5 py-2.5 rounded-lg gap-2",
+  lg: "min-h-11 text-base px-6 py-3.5 rounded-xl gap-2.5",
 } as const;
 
 interface BaseProps {

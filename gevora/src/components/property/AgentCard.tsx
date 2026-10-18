@@ -35,7 +35,7 @@ export function AgentCard({ agent }: { agent: Agent }) {
       <div className="mt-4 grid grid-cols-2 gap-2">
         <a
           href={`tel:${agent.phone.replace(/\s/g, "")}`}
-          className="flex items-center justify-center gap-2 rounded-lg border border-mist py-2.5 text-sm font-medium text-ink hover:border-teal"
+          className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-mist py-2.5 text-sm font-medium text-ink hover:border-teal"
         >
           <Phone size={15} /> Call
         </a>
@@ -44,7 +44,7 @@ export function AgentCard({ agent }: { agent: Agent }) {
             href={`https://wa.me/${agent.whatsapp.replace(/\D/g, "")}`}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center justify-center gap-2 rounded-lg bg-teal py-2.5 text-sm font-medium text-paper hover:bg-teal-light"
+            className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-teal py-2.5 text-sm font-medium text-paper hover:bg-teal-light"
           >
             <MessageCircle size={15} /> WhatsApp
           </a>

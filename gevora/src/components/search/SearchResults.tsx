@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { List, Map as MapIcon, Columns2 } from "lucide-react";
 import { useSearchStore } from "@/store/useSearchStore";
@@ -19,6 +19,7 @@ const sortOptions = [
 ] as const;
 
 export function SearchResults({ purpose, heading }: { purpose: ListingPurpose; heading: string }) {
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const searchParams = useSearchParams();
   const {
     location,
@@ -90,7 +91,7 @@ export function SearchResults({ purpose, heading }: { purpose: ListingPurpose; h
                   onClick={() => setViewMode(id)}
                   aria-label={`${id} view`}
                   className={cn(
-                    "flex h-8 w-8 items-center justify-center rounded-md",
+                    "flex h-11 w-11 items-center justify-center rounded-md",
                     viewMode === id ? "bg-teal text-paper" : "text-ink/50 hover:bg-ink/5"
                   )}
                 >
@@ -102,7 +103,7 @@ export function SearchResults({ purpose, heading }: { purpose: ListingPurpose; h
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as typeof sort)}
-              className="rounded-lg border border-mist bg-paper px-3 py-2 text-sm"
+              className="min-h-11 rounded-lg border border-mist bg-paper px-3 py-2 text-sm"
             >
               {sortOptions.map((opt) => (
                 <option key={opt.id} value={opt.id}>
@@ -112,24 +113,30 @@ export function SearchResults({ purpose, heading }: { purpose: ListingPurpose; h
             </select>
           </div>
 
-          <div className="lg:hidden mb-4">
-            <details className="rounded-xl border border-mist bg-paper">
-              <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-ink">Filters</summary>
-              <div className="px-4 pb-4">
-                <FilterPanel />
-              </div>
-            </details>
+          <div className="mb-4 lg:hidden">
+            <button
+              type="button"
+              onClick={() => setFiltersOpen(true)}
+              className="min-h-11 w-full rounded-xl border border-mist bg-paper px-4 text-left text-sm font-semibold text-ink"
+            >
+              Filters <span className="float-right text-ink/50">Adjust search</span>
+            </button>
           </div>
 
           <div
             className={cn(
               "grid gap-6",
               viewMode === "split" && "sm:grid-cols-2 xl:grid-cols-2",
-              viewMode === "list" && "sm:grid-cols-2 xl:grid-cols-3"
+              viewMode === "list" && "sm:grid-cols-2 xl:grid-cols-3",
+              viewMode === "map" && "lg:grid-cols-2"
             )}
           >
             {viewMode !== "list" && (
-              <div className="order-first h-[420px] sm:sticky sm:top-24 sm:order-none sm:col-span-full lg:h-[560px]">
+              <div className={cn(
+                "order-first h-[60dvh] min-h-[360px] sm:sticky sm:top-24 sm:order-none sm:col-span-full lg:h-[560px]",
+                viewMode === "split" && "lg:col-span-full",
+                viewMode === "split" && "hidden lg:block",
+              )}>
                 <MapView properties={results} />
               </div>
             )}
@@ -138,7 +145,11 @@ export function SearchResults({ purpose, heading }: { purpose: ListingPurpose; h
               ? Array.from({ length: 6 }).map((_, i) => (
                   <div key={i} className="h-80 animate-pulse rounded-xl bg-mist/40" />
                 ))
-              : results.map((property) => <PropertyCard key={property.id} property={property} />)}
+              : results.map((property) => (
+                <div key={property.id} className={cn(viewMode === "map" && "hidden lg:block")}>
+                  <PropertyCard property={property} />
+                </div>
+              ))}
           </div>
 
           {!isLoading && results.length === 0 && (
@@ -149,6 +160,32 @@ export function SearchResults({ purpose, heading }: { purpose: ListingPurpose; h
           )}
         </div>
       </div>
+      {filtersOpen && (
+        <div className="fixed inset-0 z-[55] bg-ink/40 lg:hidden" onClick={() => setFiltersOpen(false)}>
+          <section
+            role="dialog"
+            aria-modal="true"
+            aria-label="Search filters"
+            className="absolute inset-x-0 bottom-0 max-h-[90dvh] overflow-y-auto rounded-t-2xl bg-sand p-4 pb-[calc(1rem+env(safe-area-inset-bottom))]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="font-display text-lg font-semibold text-ink">Filters</h2>
+              <button type="button" onClick={() => setFiltersOpen(false)} className="min-h-11 px-2 text-sm text-teal">
+                Close
+              </button>
+            </div>
+            <FilterPanel />
+            <button
+              type="button"
+              onClick={() => setFiltersOpen(false)}
+              className="sticky bottom-0 mt-3 min-h-12 w-full rounded-xl bg-teal px-4 font-semibold text-paper shadow-lg"
+            >
+              Apply filters
+            </button>
+          </section>
+        </div>
+      )}
     </div>
   );
 }

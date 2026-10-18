@@ -72,6 +72,26 @@ body {
   font-family: var(--font-sans);
 }
 
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+button,
+a,
+select,
+input[type="checkbox"],
+input[type="radio"] {
+  touch-action: manipulation;
+}
+
+@media (hover: hover) {
+  .hover-only:hover {
+    opacity: 0.85;
+  }
+}
+
 /* Signature motif: louvre-lines — repeating horizontal rules evoking
    timber louvred screens used for cross-ventilation in Sri Lankan
    tropical-modernist architecture. Used as texture, never as noise. */

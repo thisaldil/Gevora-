@@ -66,6 +66,7 @@ function GoogleMapView({ properties, activeId }: { properties: Property[]; activ
           mapTypeControl: false,
           streetViewControl: false,
           fullscreenControl: false,
+          gestureHandling: "greedy",
           zoomControlOptions: { position: google.maps.ControlPosition.RIGHT_BOTTOM },
         }}
       >
@@ -104,7 +105,7 @@ function GoogleMapView({ properties, activeId }: { properties: Property[]; activ
           <button
             key={opt.id}
             onClick={() => setMapType(opt.id)}
-            className={`rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors ${
+            className={`min-h-11 rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors ${
               mapType === opt.id ? "bg-teal text-paper" : "text-ink/60 hover:bg-ink/5"
             }`}
           >
@@ -112,6 +113,15 @@ function GoogleMapView({ properties, activeId }: { properties: Property[]; activ
           </button>
         ))}
       </div>
+      {activeProperty && (
+        <Link
+          href={`/property/${activeProperty.id}`}
+          className="absolute inset-x-3 bottom-3 rounded-xl border border-mist bg-paper p-3 shadow-lg lg:hidden"
+        >
+          <p className="text-sm font-semibold text-ink">{activeProperty.title}</p>
+          <p className="mt-1 font-mono text-sm font-semibold text-teal">{formatPrice(activeProperty.price)}</p>
+        </Link>
+      )}
     </div>
   );
 }
@@ -158,7 +168,7 @@ function FallbackMap({ properties, activeId }: { properties: Property[]; activeI
             onMouseEnter={() => setHovered(p.id)}
             onMouseLeave={() => setHovered(null)}
             style={{ left: `${x}%`, top: `${y}%` }}
-            className={`absolute -translate-x-1/2 -translate-y-full rounded-full border px-2 py-1 font-mono text-[11px] font-semibold shadow-sm transition-all ${
+            className={`absolute -translate-x-1/2 -translate-y-full rounded-full border px-2 py-2 font-mono text-[11px] font-semibold shadow-sm transition-all ${
               isActive
                 ? "z-10 scale-110 border-spice bg-spice text-paper"
                 : "border-teal bg-paper text-teal hover:border-spice hover:text-spice"

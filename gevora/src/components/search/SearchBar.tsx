@@ -35,7 +35,7 @@ export function SearchBar({ compact = false }: { compact?: boolean }) {
             type="button"
             onClick={() => setPurpose(tab.id)}
             className={cn(
-              "whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
+              "min-h-11 whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
               purpose === tab.id ? "bg-teal text-paper" : "text-ink/60 hover:bg-ink/5"
             )}
           >
@@ -51,6 +51,8 @@ export function SearchBar({ compact = false }: { compact?: boolean }) {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="City, district, or landmark — e.g. Colombo 05, Galle Fort"
+            aria-label="Search by city, district, or landmark"
+            autoComplete="address-level2"
             className="w-full bg-transparent text-sm text-ink placeholder:text-ink/40 focus:outline-none"
           />
         </div>

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
@@ -13,6 +13,12 @@ export const metadata: Metadata = {
     "Search houses, apartments, land and commercial property for sale and rent across Sri Lanka. Verified listings, suburb price data, and licensed agents in one place.",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="flex min-h-full flex-col bg-sand font-sans text-ink">
+      <body className="flex min-h-full flex-col overflow-x-hidden bg-sand font-sans text-ink">
         <VideoSplash />
         <ThemeProvider>
           <QueryProvider>

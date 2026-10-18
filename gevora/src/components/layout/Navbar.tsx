@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Heart, Scale, Moon, Sun, Home } from "lucide-react";
 import { useTheme } from "@/providers/ThemeProvider";
@@ -23,6 +23,20 @@ export function Navbar() {
   const { theme, toggle } = useTheme();
   const savedCount = useUserStore((s) => s.savedIds.length);
   const compareCount = useUserStore((s) => s.compareIds.length);
+
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-mist bg-sand/90 backdrop-blur-md">
@@ -89,7 +103,8 @@ export function Navbar() {
             size="sm"
             className="px-2 lg:hidden"
             onClick={() => setOpen((v) => !v)}
-            aria-label="Open menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </Button>
@@ -99,19 +114,19 @@ export function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ x: "100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "100%", opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="overflow-hidden border-t border-mist bg-sand lg:hidden"
+            className="fixed inset-x-0 bottom-0 top-[65px] z-40 overflow-y-auto border-t border-mist bg-sand lg:hidden"
           >
-            <nav className="flex flex-col gap-1 px-4 py-3">
+            <nav className="flex min-h-full flex-col gap-1 px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-3">
               {primaryLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-ink/85 hover:bg-ink/5"
+                  className="flex min-h-11 items-center rounded-lg px-3 py-2.5 text-sm font-medium text-ink/85 hover:bg-ink/5"
                 >
                   {link.label}
                 </Link>

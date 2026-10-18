@@ -42,7 +42,7 @@ export function AIChatWidget() {
   }
 
   return (
-    <div className="fixed bottom-5 right-5 z-50">
+    <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-3 z-50 sm:bottom-5 sm:right-5">
       <AnimatePresence>
         {open && (
           <motion.div
@@ -50,13 +50,13 @@ export function AIChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.97 }}
             transition={{ duration: 0.16 }}
-            className="mb-3 flex h-[26rem] w-[22rem] flex-col overflow-hidden rounded-2xl border border-mist bg-paper shadow-2xl sm:w-96"
+            className="mb-3 flex h-[min(26rem,70dvh)] w-[calc(100vw-1.5rem)] flex-col overflow-hidden rounded-2xl border border-mist bg-paper shadow-2xl sm:w-96"
           >
             <div className="flex items-center justify-between border-b border-mist bg-teal px-4 py-3 text-paper">
               <span className="flex items-center gap-2 font-display text-sm font-semibold">
                 <Sparkles size={16} /> Gevora AI Search
               </span>
-              <button onClick={() => setOpen(false)} aria-label="Close">
+              <button onClick={() => setOpen(false)} aria-label="Close" className="flex h-11 w-11 items-center justify-center">
                 <X size={16} />
               </button>
             </div>
@@ -101,7 +101,7 @@ export function AIChatWidget() {
                     <button
                       key={s}
                       onClick={() => send(s)}
-                      className="rounded-full border border-mist px-2.5 py-1 text-left text-xs text-ink/70 hover:border-teal"
+                      className="min-h-11 rounded-full border border-mist px-2.5 py-1 text-left text-xs text-ink/70 hover:border-teal"
                     >
                       {s}
                     </button>
@@ -126,7 +126,7 @@ export function AIChatWidget() {
               <button
                 type="submit"
                 aria-label="Send"
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-teal text-paper"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-teal text-paper"
               >
                 <Send size={15} />
               </button>
