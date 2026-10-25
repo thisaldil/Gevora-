@@ -23,7 +23,7 @@ const RESIDENCES = [
       "An iconic high-rise with distinctive architecture, city views and premium residential facilities. A strong choice for luxury living.",
     bestFor: "Prestige and skyline views",
     href: "https://www.akaraapartments.lk/top-luxury-apartments-in-colombo-what-should-you-choose/",
-    image: "./images/residences/altair.jpg",
+    image: "/images/residences/altair.jpg",
   },
   {
     slug: "cinnamon-life",
@@ -109,6 +109,7 @@ function Photo({
   className?: string;
 }) {
   const [src, setSrc] = useState<string>(r.image);
+
   return (
     <Image
       src={src}
@@ -118,7 +119,9 @@ function Photo({
       sizes={sizes}
       quality={90}
       onError={() => {
-        if (src !== FALLBACK_IMAGE) setSrc(FALLBACK_IMAGE);
+        if (src !== FALLBACK_IMAGE) {
+          setSrc(FALLBACK_IMAGE);
+        }
       }}
       className={`object-cover ${className}`}
     />
@@ -148,6 +151,23 @@ function DesktopStage() {
     const top = el.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({ top: top + i * window.innerHeight + 2, behavior: "smooth" });
   };
+
+
+const scrollToNextSection = () => {
+  const heroSection = trackRef.current?.closest("section");
+
+  if (!heroSection) return;
+
+  const categoryGrid = heroSection.nextElementSibling;
+
+  if (categoryGrid) {
+    categoryGrid.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+};
+
 
   const r = RESIDENCES[active];
 
@@ -246,6 +266,35 @@ function DesktopStage() {
             </button>
           ))}
         </nav>
+
+        {/* Scroll to next section */}
+<motion.button
+  type="button"
+  onClick={scrollToNextSection}
+  aria-label="Scroll to next section"
+  initial={{ opacity: 0, y: -6 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4, delay: 0.2 }}
+  whileHover={{ y: 4, scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className="absolute bottom-7 left-1/2 z-20 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border border-white/40 bg-black/25 text-white shadow-lg backdrop-blur-md transition-colors hover:bg-white hover:text-teal focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="23"
+    height="23"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 5v14" />
+    <path d="m19 12-7 7-7-7" />
+  </svg>
+</motion.button>
       </div>
     </div>
   );
