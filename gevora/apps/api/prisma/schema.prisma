@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ListingPurpose {
+  BUY
+  RENT
+  LAND
+  COMMERCIAL
+  SHARE
+}
+
+enum PropertyType {
+  HOUSE
+  APARTMENT
+  VILLA
+  LUXURY
+  LAND
+  COMMERCIAL
+  WAREHOUSE
+  OFFICE
+  AGRICULTURAL
+  HOLIDAY
+}
+
+enum ListingStatus {
+  ACTIVE
+  UNDER_OFFER
+  SOLD
+  LEASED
+  WITHDRAWN
+}
+
+enum PriceHistoryEvent {
+  LISTED
+  PRICE_CHANGE
+  SOLD
+  LEASED
+  WITHDRAWN
+  RELISTED
+}
+
+enum Currency {
+  LKR
+  USD
+}
+
+model Property {
+  id              String                                 @id @default(cuid())
+  line1           String
+  suburb          String
+  district        String
+  province        String
+  postalCode      String?
+  latitude        Decimal                                @db.Decimal(9, 6)
+  longitude       Decimal                                @db.Decimal(9, 6)
+  location        Unsupported("geography(Point, 4326)")?
+  landSizePerches Decimal?                               @db.Decimal(12, 2)
+  floorAreaSqft   Decimal?                               @db.Decimal(12, 2)
+  yearBuilt       Int?
+  createdAt       DateTime                               @default(now())
+  updatedAt       DateTime                               @updatedAt
+  listings        Listing[]
+  priceHistory    PriceHistory[]
+
+  @@index([suburb])
+  @@index([district])
+}
+
+model Listing {
+  id           String         @id @default(cuid())
+  propertyId   String
+  property     Property       @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  title        String
+  purpose      ListingPurpose
+  type         PropertyType
+  status       ListingStatus  @default(ACTIVE)
+  price        Decimal        @db.Decimal(18, 2)
+  priceLabel   String?
+  rentPeriod   String?
+  currency     Currency       @default(LKR)
+  beds         Int            @default(0)
+  baths        Int            @default(0)
+  parking      Int            @default(0)
+  description  String
+  images       String[]
+  videoUrl     String?
+  tourUrl      String?
+  features     String[]
+  amenities    String[]
+  slFeatures   String[]
+  furnished    Boolean?
+  featured     Boolean        @default(false)
+  verified     Boolean        @default(false)
+  views        Int            @default(0)
+  savedCount   Int            @default(0)
+  listedDate   DateTime       @default(now())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  priceHistory PriceHistory[]
+
+  @@index([purpose, status])
+  @@index([price])
+  @@index([beds])
+}
+
+model PriceHistory {
+  id         String            @id @default(cuid())
+  propertyId String
+  property   Property          @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  listingId  String?
+  listing    Listing?          @relation(fields: [listingId], references: [id], onDelete: SetNull)
+  event      PriceHistoryEvent
+  price      Decimal?          @db.Decimal(18, 2)
+  note       String?
+  occurredAt DateTime          @default(now())
+
+  @@index([propertyId, occurredAt])
+}

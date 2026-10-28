@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "pnpm --filter @gevora/api typecheck && tsc --noEmit"
   },
   "dependencies": {
     "@fontsource/fraunces": "^5.2.9",

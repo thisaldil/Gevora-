@@ -1,9 +1,8 @@
-# Gevora — Sri Lanka Property Portal (Frontend)
+# Gevora — Sri Lanka Property Portal
 
-A frontend-only clone of realestate.com.au's feature set, rebuilt for the Sri
-Lankan market. Backed entirely by an in-memory mock API so it runs standalone
-today and swaps to the real Fastify/PostgreSQL backend later with no
-component changes.
+A clone of realestate.com.au's feature set, rebuilt for the Sri Lankan market.
+The Next.js frontend remains runnable with its in-memory mock API, while the
+Fastify/PostgreSQL backend foundation lives in `apps/api`.
 
 ## Stack
 
@@ -19,6 +18,7 @@ component changes.
 | Maps | Google Maps JavaScript API (falls back to a static positional map with no key) |
 | Charts | Recharts |
 | Images | next/image, ready for Cloudinary via `src/lib/cloudinary.ts` |
+| Backend | Fastify 5, Prisma, PostgreSQL 16/PostGIS/pg_trgm |
 | Fonts | Self-hosted via `@fontsource` (Fraunces, Manrope, IBM Plex Mono) — no external font network calls |
 
 ## Getting started
@@ -37,6 +37,12 @@ Copy `.env.example` to `.env.local` to enable:
 - `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` — real interactive Google Maps (satellite/roadmap/hybrid/terrain) instead of the fallback preview
 - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` / `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET` — real image hosting instead of mock picsum.photos URLs
 - `NEXT_PUBLIC_API_BASE_URL` — reserved for when the real API replaces `src/lib/api.ts`
+
+## Backend foundation
+
+The API package uses Docker Compose for PostgreSQL/PostGIS, Redis, and
+Elasticsearch. See [`apps/api/README.md`](apps/api/README.md) for migration and
+seed commands. Docker is required to run those services locally.
 
 ## Swapping in the real backend
 
